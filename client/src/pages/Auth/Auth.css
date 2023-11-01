@@ -1,0 +1,107 @@
+.auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 47px 0px !important;
+}
+
+.auth .auth-inner-bubble-container {
+    width: 36% !important;
+    background-color: white;
+    padding: 23px 43px;
+}
+
+.auth h2 {
+    font-size: 36px !important;
+    font-weight: 600 !important;
+    color: black !important;
+    text-align: center !important;
+}
+
+.auth .item {
+    margin-top: 23px;
+}
+
+.auth p {
+    color: black !important;
+    text-align: center;
+    font-weight: 500 !important;
+    font-size: 17px;
+    color: rgba(17, 17, 17, .4) !important;
+}
+
+.auth label {
+    font-size: 17px;
+    color: rgba(17, 17, 17, .4);
+    display: block !important;
+}
+
+.auth input,
+.auth .input-group-text {
+    height: 47px !important;
+    border-radius: 0px !important;
+    border: 1px solid rgba(212, 212, 212, .8) !important;
+    background-color: white !important;
+    width: 100%;
+    padding-left: 10px;
+}
+
+.auth input {
+    border-radius: 6px !important;
+    font-size: 17px !important;
+    opacity: .6;
+}
+
+.auth .input-group-text {
+    border-right: none !important;
+    border-top-left-radius: 6px !important;
+    border-bottom-left-radius: 6px !important;
+}
+
+.auth .btn,
+.auth .btn:focus {
+    -webkit-appearance: none;
+    width: 100%;
+    padding: 10px 0px;
+    background-color: #cd5a91 !important;
+    border-radius: 6px;
+    font-size: 17px;
+    color: #fff !important;
+    border: 0;
+    margin-top: 17px;
+}
+
+.auth .end-text {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    align-items: center;
+    margin-top: 23px;
+}
+
+.auth a {
+    color: black !important;
+}
+
+.auth input:focus {
+    box-shadow: none !important;
+}
+
+@media (max-width: 700px) {
+    .auth .auth-inner-bubble-container {
+        width: 86% !important;
+    }
+
+    .auth h2 {
+        font-size: 23px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .auth h3 {
+        margin-bottom: 15px !important;
+    }
+
+    .auth .terms-privacy p {
+        font-size: 14px;
+    }
+}
