@@ -12,6 +12,7 @@ import AddModal from "../../components/AddModal/AddModal";
 import AddMembers from "../../components/AddMembers/AddMembers";
 
 const Incorporate = () => {
+  
   const history = useHistory();
   const [updateTodosCategory] = useMutation(UPDATE_TODO_CATEGORY, {
     context: {

@@ -126,7 +126,6 @@ const Mutation = new GraphQLObjectType({
                         date: args.date,
                         user: userId,
                         members: [email],
-
                     });
                     return todo.save();
                 }
@@ -220,7 +219,7 @@ const Mutation = new GraphQLObjectType({
                         }
 
                         // If it exists and belongs to the user, delete it
-                        return Todo.findByIdAndRemove(args.id);
+                        return Todo.findByIdAndDelete(args.id);
                     })
                     .then((deletedTodo) => {
                         if (!deletedTodo) {
