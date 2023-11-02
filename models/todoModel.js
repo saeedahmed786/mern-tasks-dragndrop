@@ -17,11 +17,11 @@ const todoSchema = new mongoose.Schema({
         type: String
     },
     comments: {
-        type: [String],
+        type: [],
         default: [],
     },
     members: {
-        type: [String],
+        type: [],
         default: []
     },
 });
