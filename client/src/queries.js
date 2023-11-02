@@ -19,7 +19,6 @@ export const GET_USER = gql`
       id
       email
       fullName
-      members
     }
   }
 `;
@@ -114,7 +113,6 @@ export const SIGNUP_USER = gql`
       id
       fullName
       email
-      members
       token
     }
   }
@@ -157,7 +155,6 @@ export const LOGIN_USER = gql`
           id
           fullName
           email
-          members
         }
     }
   }
