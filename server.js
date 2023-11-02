@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 const config = require('./config/keys');
 const { graphqlHTTP } = require('express-graphql');
 const schema = require('./schema/schema');
@@ -16,8 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect(config.mongoURI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
+    useUnifiedTopology: true
 }).then(() => console.log('MongoDb Connected')).catch(err => console.log(err));
 
 if (process.env.NODE_ENV === 'production') {
@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-app.get("/", async(req, res) => {
+app.get("/", async (req, res) => {
     res.send("Server is runnning...")
 })
 
