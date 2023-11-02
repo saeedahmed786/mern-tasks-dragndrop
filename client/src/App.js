@@ -6,11 +6,11 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import { isAuthenticated, logout } from "./components/Auth/auth";
 
 const client = new ApolloClient({
-  uri: 'http://localhost:8000/graphql', // Replace with your GraphQL server URL
+  uri: process.env.REACT_APP_BACKEND_URL, // Replace with your GraphQL server URL
   cache: new InMemoryCache(),
 });
 
-function App() { 
+function App() {
   return (
     <ApolloProvider client={client}>
       <div className="App">
