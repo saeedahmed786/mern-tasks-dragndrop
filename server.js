@@ -29,6 +29,10 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
+app.get("/", async(req, res) => {
+    res.send("Server is runnning...")
+})
+
 app.use('/graphql', graphqlHTTP({
     schema,
     graphiql: true, // Enable GraphiQL for testing
