@@ -14,7 +14,11 @@ export const Login = (props) => {
     password: ''
   });
 
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [loginUser] = useMutation(LOGIN_USER, {
+    onError: (err) => {
+      console.log(err)
+    }
+  });
 
   const { email, password } = userData;
 
@@ -27,28 +31,24 @@ export const Login = (props) => {
 
 
   const submitHandler = async (e) => {
-    setLoading(true);
     e.preventDefault();
     try {
-      const { errors, data } = await loginUser({ variables: { email, password } });
+      const { data } = await loginUser({ variables: { email, password } });
       // Handle success, e.g., store the token in localStorage
-      console.log('Login success:', data);
-      if (errors?.length > 0) {
-        Error(errors[0]?.message);
-        console.log(errors[0]?.message)
+      if (data?.login?.status === "error") {
+        Error(data?.login?.message);
+      } else {
+        if (data.login.user) {
+          Success("Logged in successfully");
+          setAuthentication(data?.login.user, data?.login.token);
+          props.history.push("/");
+          document.location.reload();
+        }
       }
-      else {
-        Success("Logged in successfully");
-        setAuthentication(data?.login.user, data?.login.token);
-        props.history.push("/");
-        document.location.reload();
-      }
-      setLoading(false);
     } catch (error) {
       // Handle error, e.g., display an error message
       console.error('Login error:', error.response);
-      Error("Incorrect Password")
-      setLoading(false);
+      Error("Unknown error");
     }
   };
 

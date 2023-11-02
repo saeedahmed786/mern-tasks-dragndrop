@@ -30,23 +30,19 @@ export const Signup = (props) => {
         if (password !== confirm) {
             Error("Passwords don't match");
         } else {
-            setLoading(true);
-            try {
-                const { data } = await signUp({ variables: { fullName, email, password } });
-                // Handle success, e.g., store the token in localStorage
-                console.log('Login success:', data);
-                if (data?.signUp) {
-                    Success("Account created successfully");
-                    props.history.push("/login")
-                }
-                setLoading(false);
-            } catch (error) {
-                // Handle error, e.g., display an error message
-                console.error('Login error:', error);
-                setLoading(false);
+            const { data } = await signUp({ variables: { fullName, email, password } });
+            // Handle success, e.g., store the token in localStorage
+            console.log(data);
+            if (data?.signup?.status === "error") {
+                Error(data?.signup?.message);
+            } else {
+                // if (data?.signUp) {
+                Success("Account created successfully");
+                props.history.push("/login")
+                // }
             }
-        }
-    };
+        };
+    }
 
     return (
         loading
@@ -61,25 +57,25 @@ export const Signup = (props) => {
                             <div className='item'>
                                 <label>Full Name</label>
                                 <div className="input-group">
-                                    <input name='fullName' type="text" className="form-control" placeholder="Full Name" onChange={handleChange} />
+                                    <input required name='fullName' type="text" className="form-control" placeholder="Full Name" onChange={handleChange} />
                                 </div>
                             </div>
                             <div className='item'>
                                 <label>Email</label>
                                 <div className="input-group">
-                                    <input name='email' type="text" className="form-control" placeholder="Email" onChange={handleChange} />
+                                    <input required name='email' type="text" className="form-control" placeholder="Email" onChange={handleChange} />
                                 </div>
                             </div>
                             <div className='item'>
                                 <label>Password</label>
                                 <div className="input-group">
-                                    <input name='password' type="password" className="form-control" placeholder="Password" onChange={handleChange} />
+                                    <input required name='password' type="password" className="form-control" placeholder="Password" onChange={handleChange} />
                                 </div>
                             </div>
                             <div className='item'>
                                 <label>Retype Password</label>
                                 <div className="input-group">
-                                    <input name='confirm' type="password" className="form-control" placeholder="Retype Password" onChange={handleChange} />
+                                    <input required name='confirm' type="password" className="form-control" placeholder="Retype Password" onChange={handleChange} />
                                 </div>
                             </div>
                             <button className='btn' type="submit">Signup</button>

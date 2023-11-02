@@ -10,6 +10,8 @@ const AuthPayloadType = new GraphQLObjectType({
     name: 'AuthPayload',
     fields: () => ({
         token: { type: GraphQLString },
+        status: { type: GraphQLString },
+        message: { type: GraphQLString },
         user: { type: UserType },
     }),
 });
@@ -19,6 +21,7 @@ const UserType = new GraphQLObjectType({
     fields: () => ({
         id: { type: GraphQLID },
         fullName: { type: GraphQLString },
+        token: { type: GraphQLString },
         email: { type: GraphQLString },
         members: { type: new GraphQLList(GraphQLString) },
     }),
@@ -210,7 +213,7 @@ const Mutation = new GraphQLObjectType({
                 }
 
                 // Check if the todo exists and belongs to the authenticated user
-                return Todo.findOne({ _id: args.id, user: userId })
+                return Todo.findOne({ _id: args.id })
                     .then((todo) => {
                         if (!todo) {
                             throw new Error('Todo not found or not owned by the authenticated user');
@@ -313,23 +316,47 @@ const Mutation = new GraphQLObjectType({
                     .then(foundUser => {
                         user = foundUser;
                         if (!user) {
-                            throw new Error('User not found');
+                            return {
+                                status: "error",
+                                message: "User not found",
+                                token: "1", // Include the token in the response
+                                user: {
+                                    id: user.id,
+                                    fullName: user.fullName,
+                                    email: user.email,
+                                },
+                            };
+                            // throw new Error('User not found');
                         }
                         return bcrypt.compare(args.password, user.password);
                     })
                     .then(isValid => {
                         if (!isValid) {
-                            throw new Error('Invalid password');
+                            console.log("first");
+                            // throw new Error('Invalid password');
+                            return {
+                                status: "error",
+                                message: "Invalid password",
+                                token: "1", // Include the token in the response
+                                user: {
+                                    id: user.id,
+                                    fullName: user.fullName,
+                                    email: user.email,
+                                },
+                            };
+                        } else {
+                            const token = jwt.sign({ userId: user.id, email: user.email }, config.jwtSecret, { expiresIn: config.jwtExpire });
+                            return {
+                                status: "pass",
+                                message: "Logged in successfully",
+                                token: token, // Include the token in the response
+                                user: {
+                                    id: user.id,
+                                    fullName: user.fullName,
+                                    email: user.email,
+                                },
+                            };
                         }
-                        const token = jwt.sign({ userId: user.id, email: user.email }, config.jwtSecret, { expiresIn: config.jwtExpire });
-                        return {
-                            token: token, // Include the token in the response
-                            user: {
-                                id: user.id,
-                                fullName: user.fullName,
-                                email: user.email,
-                            },
-                        };
                     })
                     .catch(err => {
                         throw err;

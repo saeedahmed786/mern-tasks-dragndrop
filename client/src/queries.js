@@ -115,6 +115,7 @@ export const SIGNUP_USER = gql`
       fullName
       email
       members
+      token
     }
   }
 `;
@@ -150,6 +151,8 @@ export const LOGIN_USER = gql`
   mutation LoginUser($email: String!, $password: String!) {
     login(email: $email, password: $password) {
         token
+        status
+        message
         user {
           id
           fullName
@@ -158,4 +161,4 @@ export const LOGIN_USER = gql`
         }
     }
   }
-`;
+`; 

@@ -22,8 +22,7 @@ const todoSchema = new mongoose.Schema({
     },
     members: {
         type: [String],
-        default: [],
-        unique: true
+        default: []
     },
 });
 

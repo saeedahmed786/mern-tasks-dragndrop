@@ -1,7 +1,6 @@
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom"
 import { Login } from "./pages/Auth/Login";
 import { Signup } from "./pages/Auth/Signup";
-import 'antd/dist/antd.css';
 import Home from "./pages/Home/Home";
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import { isAuthenticated, logout } from "./components/Auth/auth";
@@ -11,7 +10,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-function App() {
+function App() { 
   return (
     <ApolloProvider client={client}>
       <div className="App">

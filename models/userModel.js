@@ -14,11 +14,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    members: {
-        type: [String],
-        default: [],
-        unique: true
-    },
+    // members: {
+    //     type: [String],
+    //     default: [],
+    // },
 });
 
 module.exports = mongoose.model('User', userSchema);
